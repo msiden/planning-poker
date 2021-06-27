@@ -1,0 +1,7 @@
+fastapi
+setuptools
+pydantic
+aiofiles
+jinja2
+python_multipart
+uvicorn
