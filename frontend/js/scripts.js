@@ -1,48 +1,37 @@
-const COOKIE = document.cookie.replace("uuid=", "")
-const URL = window.location.href
-const USER_FILES = URL + "user_files/" + COOKIE
-const LINK = USER_FILES + "/completed/converted_files.zip"
-var request = new XMLHttpRequest()
-var res
+const COOKIE = document.cookie.replace("uuid=", "");
+const URL = window.location.hostname;
+var request = new XMLHttpRequest();
+var gameId;
+var gameName;
 
 
-function Upload() {
-    document.getElementById("statusText").innerHTML = "Uploading files...";
-    let formData = new FormData();
-    var no_of_files = document.getElementById('filesToUpload').files.length;
-    for (var i = 0; i < no_of_files; i++) {
-        formData.append("files", document.getElementById('filesToUpload').files[i]);
-    }
+function CreateNewGame() {
+    var gameName = document.getElementById("inputNewGame").value;
 
     request.onreadystatechange = function() {
         if (request.readyState === 4) {
-            document.getElementById("statusText").innerHTML = "";
-            document.getElementById("actionButton").style = "";
-            document.getElementById("actionButton").onclick = function() { ProcessQueue(); }
+            gameId = request.response;
+            console.log(gameId);
+            document.getElementById("gamesList").style = "display: true";
+            }
         }
-    }
 
-    request.open("POST", URL + "upload");
-    request.send(formData);
+    request.open("POST", "new_game");
+    request.send(JSON.stringify({"name": gameName}));
 }
 
-function SetBitrate() {
-    var newBitrate = document.getElementById("bitrateVal").value;
-    request.open("PUT", URL + "set_bitrate");
-    request.send(JSON.stringify({"bitrate": newBitrate}));
-}
+function CreateNewIssue() {
+    var issueName = document.getElementById("inputNewIssue").value;
 
-function ProcessQueue() {
-    document.getElementById("actionButton").style = "display:none;";
-    document.getElementById("statusText").innerHTML = "Processing... This may take a while so please be patient.";
     request.onreadystatechange = function() {
         if (request.readyState === 4) {
-            document.getElementById("statusText").innerHTML = "";
-            document.getElementById("actionButton").style = "";
-            document.getElementById("actionButton").onclick = function() { open(LINK) }
-            document.getElementById("actionButton").innerHTML = "Download converted files";
+            issueId = request.response
+            document.getElementById("issuesList").style = "display: true";
+            }
         }
-    }
-    request.open("POST", URL + "process");
-    request.send(null);
+    console.log(issueName);
+    console.log(gameId);
+    request.open("POST", "new_issue");
+    request.send(JSON.stringify({"name": issueName, "game_id": gameId}));
 }
+

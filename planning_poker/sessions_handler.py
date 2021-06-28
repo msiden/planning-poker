@@ -1,23 +1,16 @@
 import uuid
-import time
-import atexit
 from fastapi import HTTPException, status, Request
-from planning_poker.process_handler import ProcessHandler
-from planning_poker.utils import *
-from planning_poker.constants import *
+from plan.utils import *
 
 
 class SessionsHandler(object):
-    """Class for handling user sessions. Returns a unique instance of the process handler for each user connecting
-    to the service"""
+    """Class for handling user sessions"""
 
     def __init__(self):
         self.sessions = {}
-        atexit.register(delete_directory, directory=FILES_ROOT)
 
     def new(self) -> str:
-        token = self.get_token()
-        create_directory(USER_ROOT.format(token))
+        token = get_uuid()
         self.sessions.update({
             f"uuid={token}": {
                 "handler": ProcessHandler(token), "time_stamp": int(time.time())

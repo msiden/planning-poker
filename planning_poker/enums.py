@@ -1,8 +1,11 @@
-from enum import Enum, auto
+from enum import IntEnum
 
 
-class VideoFileStatus(Enum):
-    IN_QUEUE = auto()
-    IN_PROGRESS = auto()
-    DONE = auto()
-    FAILED = auto()
+class Score(IntEnum):
+    ZERO = 0
+    ONE = 1
+    TWO = 2
+    THREE = 3
+    FIVE = 5
+    EIGHT = 8
+    THIRTEEN = 13

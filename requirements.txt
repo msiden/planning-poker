@@ -1,6 +1,6 @@
-fastapi
+fastapi~=0.63.0
 setuptools
-pydantic
+pydantic~=1.8.1
 aiofiles
 jinja2
 python_multipart
