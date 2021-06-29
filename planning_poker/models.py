@@ -1,6 +1,5 @@
 from pydantic import BaseModel
 from planning_poker.enums import *
-from typing import Optional
 
 
 class Name(BaseModel):
@@ -13,9 +12,11 @@ class Id(BaseModel):
 
 class Vote(BaseModel):
     score: Score
+    game_id: str
+    issue_id: str
 
 
 class Issues(BaseModel):
     game_id: str
-    name: str
+    name: str = ""
     issue_id: str = ""

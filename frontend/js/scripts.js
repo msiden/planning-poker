@@ -1,8 +1,6 @@
 //const COOKIE = document.cookie.replace("uuid=", "");
 const URL = window.location.hostname;
 var request = new XMLHttpRequest();
-//var gameId;
-//var gameName;
 
 
 function CreateNewGame() {
@@ -76,7 +74,7 @@ function loadIssues() {
             issuesList.forEach( item => {
             let row = table.insertRow();
             let name = row.insertCell(0);
-            name.innerHTML = `<a href=/game/${item.id}>${item.name}</a>`
+            name.innerHTML = `<a href=/game/${gameId}/${item.id}>${item.name}</a>`
             });
         }
     }
@@ -85,3 +83,45 @@ function loadIssues() {
     request.send(JSON.stringify({"id": gameId}));
 }
 
+function castVote() {
+
+    var issueId = window.location.href.slice(-36);
+    var gameId = window.location.href.replace(issueId, ""),
+    gameId = gameId.slice(-37, -1);
+
+    var radios = document.getElementById("voteButtons");
+    for (var i = 0, length = radios.length; i < length; i++) {
+        if (radios[i].checked) {
+            var selection = radios[i].id;
+            selection = selection.replace("vote", "");
+            break;
+        }
+    }
+
+    request.onreadystatechange = function() {
+        if (request.readyState === 4) {
+            document.getElementById("totScore").style = "";
+            };
+        }
+
+    request.open("POST", "/vote");
+    request.send(JSON.stringify({"score": selection, "game_id": gameId, "issue_id": issueId}));
+}
+
+function getTotalScore () {
+
+    var issueId = window.location.href.slice(-36);
+    var gameId = window.location.href.replace(issueId, ""),
+    gameId = gameId.slice(-37, -1);
+
+    request.onreadystatechange = function() {
+        if (request.readyState === 4) {
+            var totScore = request.response;
+            document.getElementById("totScoreText").innerHTML = "The total score is " + totScore;
+            };
+        }
+
+    request.open("POST", "/total_score");
+    request.send(JSON.stringify({"game_id": gameId, "issue_id": issueId}));
+
+}

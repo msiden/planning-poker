@@ -3,7 +3,6 @@ from fastapi.staticfiles import StaticFiles
 from fastapi.responses import HTMLResponse
 from fastapi.templating import Jinja2Templates
 from planning_poker.game import *
-from planning_poker.enums import *
 from planning_poker.models import *
 
 
@@ -36,8 +35,8 @@ def new_issue(issue: Issues) -> str:
 
 
 @app.post("/vote")
-def vote(score: Score, issue: Issues) -> None:
-    games.get(issue.game_id).issue(issue.issue_id).vote(score.value)
+def vote(score: Vote) -> None:
+    games.get(score.game_id).issue(score.issue_id).vote(score.score)
 
 
 @app.get("/game/{game_id}", response_class=HTMLResponse)
@@ -54,3 +53,14 @@ def list_games() -> list:
 @app.post("/list_issues")
 def list_issues(game_id: Id):
     return games.get(game_id.id).issues()
+
+
+@app.get("/game/{game_id}/{issue_id}", response_class=HTMLResponse)
+def issue_page(request: Request):
+    response = templates.TemplateResponse("issue.html", {"request": request})
+    return response
+
+
+@app.post("/total_score")
+def total_score(issue: Issues) -> int:
+    return games.get(issue.game_id).issue(issue.issue_id).score()
