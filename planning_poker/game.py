@@ -1,5 +1,4 @@
 from planning_poker.utils import *
-from planning_poker.models import *
 
 
 class Issue(object):
@@ -15,29 +14,35 @@ class Issue(object):
 
 class Game(object):
 
-    def __init__(self, name: Name, game_id: str):
+    def __init__(self, name: str, game_id: str):
         self.name = name
         self.id = game_id
-        self.issues = {}
+        self._issues = {}
 
     def add_issue(self, name: str) -> str:
         issue_id = get_uuid()
-        self.issues.update({issue_id: Issue(name, issue_id)})
+        self._issues.update({issue_id: Issue(name, issue_id)})
         return issue_id
 
     def issue(self, issue_id: str):
-        return self.issues.get(issue_id)
+        return self._issues.get(issue_id)
+
+    def issues(self) -> list:
+        return [{"name": issue.name, "id": issue.id} for issue in self._issues.values()]
 
 
 class Games(object):
 
     def __init__(self):
-        self.all = {}
+        self._all = {}
 
-    def new(self, name: Name) -> str:
+    def new(self, name: str) -> str:
         game_id = get_uuid()
-        self.all.update({game_id: Game(name, game_id)})
+        self._all.update({game_id: Game(name, game_id)})
         return game_id
 
     def get(self, game_id: str) -> Game:
-        return self.all.get(game_id)
+        return self._all.get(game_id)
+
+    def all(self) -> list:
+        return [{"name": game.name, "id": game.id} for game in self._all.values()]
