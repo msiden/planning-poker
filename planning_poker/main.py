@@ -17,8 +17,6 @@ templates = Jinja2Templates(directory="frontend/")
 @app.get("/", response_class=HTMLResponse)
 def index(request: Request) -> templates.TemplateResponse:
     response = templates.TemplateResponse("index.html", {"request": request})
-    #token = get_uuid()
-    #response.set_cookie(key="uuid", value=token)
     return response
 
 
@@ -36,7 +34,7 @@ def new_issue(issue: Issues) -> str:
 
 @app.post("/vote")
 def vote(score: Vote) -> None:
-    games.get(score.game_id).issue(score.issue_id).vote(score.score)
+    games.get(score.game_id).issue(score.issue_id).vote(score.score, score.user_id)
 
 
 @app.get("/game/{game_id}", response_class=HTMLResponse)
@@ -58,6 +56,9 @@ def list_issues(game_id: Id):
 @app.get("/game/{game_id}/{issue_id}", response_class=HTMLResponse)
 def issue_page(request: Request):
     response = templates.TemplateResponse("issue.html", {"request": request})
+    cookie = request.headers.get("cookie")
+    if not cookie:
+        response.set_cookie(key="uuid", value=get_uuid())
     return response
 
 

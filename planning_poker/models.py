@@ -14,6 +14,7 @@ class Vote(BaseModel):
     score: Score
     game_id: str
     issue_id: str
+    user_id: str
 
 
 class Issues(BaseModel):

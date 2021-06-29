@@ -5,14 +5,14 @@ class Issue(object):
 
     def __init__(self, name: str, issue_id: str):
         self.name = name
-        self._score = 0
+        self._score = {}
         self.id = issue_id
 
-    def vote(self, score: int):
-        self._score += score
+    def vote(self, score: int, user_id: str):
+        self._score.update({user_id: score})
 
     def score(self) -> int:
-        return self._score
+        return sum(self._score.values())
 
 
 class Game(object):

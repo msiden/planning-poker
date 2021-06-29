@@ -1,4 +1,3 @@
-//const COOKIE = document.cookie.replace("uuid=", "");
 const URL = window.location.hostname;
 var request = new XMLHttpRequest();
 
@@ -88,8 +87,9 @@ function castVote() {
     var issueId = window.location.href.slice(-36);
     var gameId = window.location.href.replace(issueId, ""),
     gameId = gameId.slice(-37, -1);
-
+    var cookie = document.cookie.replace("uuid=", "");
     var radios = document.getElementById("voteButtons");
+
     for (var i = 0, length = radios.length; i < length; i++) {
         if (radios[i].checked) {
             var selection = radios[i].id;
@@ -105,7 +105,7 @@ function castVote() {
         }
 
     request.open("POST", "/vote");
-    request.send(JSON.stringify({"score": selection, "game_id": gameId, "issue_id": issueId}));
+    request.send(JSON.stringify({"score": selection, "game_id": gameId, "issue_id": issueId, "user_id": cookie}));
 }
 
 function getTotalScore () {
