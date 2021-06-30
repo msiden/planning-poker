@@ -65,3 +65,8 @@ def issue_page(request: Request):
 @app.post("/total_score")
 def total_score(issue: Issues) -> int:
     return games.get(issue.game_id).issue(issue.issue_id).score()
+
+
+@app.post("/list_votes")
+def list_votes(issue: Issues) -> list:
+    return games.get(issue.game_id).issue(issue.issue_id).votes()

@@ -10,6 +10,8 @@
   <body>
 
       <script src="/js/scripts.js"></script>
+      <script src="/js/issue.js"></script>
+      <script>updateVotes()</script>
 
       <div class="container">
       <div class="d-flex justify-content-center align-items-center" style="height: 100vh;">
@@ -22,48 +24,63 @@
             />
           </a>
           <br>Have your vote<br><br>
-          <form action="#n" name="vote" id="voteButtons">
-            <div class="form-check">
-              <input class="form-check-input" type="radio" name="flexRadioDefault" id="vote0">
-              <label class="form-check-label" for="vote0">0</label>
-            </div>
-            <div class="form-check">
-              <input class="form-check-input" type="radio" name="flexRadioDefault" id="vote1">
-              <label class="form-check-label" for="vote1">1</label>
-            </div>
-            <div class="form-check">
-              <input class="form-check-input" type="radio" name="flexRadioDefault" id="vote2">
-              <label class="form-check-label" for="vote2">2</label>
-            </div>
-            <div class="form-check">
-              <input class="form-check-input" type="radio" name="flexRadioDefault" id="vote3">
-              <label class="form-check-label" for="vote3">3</label>
-            </div>
-            <div class="form-check">
-              <input class="form-check-input" type="radio" name="flexRadioDefault" id="vote5">
-              <label class="form-check-label" for="vote5">5</label>
-            </div>
-            <div class="form-check">
-              <input class="form-check-input" type="radio" name="flexRadioDefault" id="vote8">
-              <label class="form-check-label" for="vote8">8</label>
-            </div>
-            <div class="form-check">
-              <input class="form-check-input" type="radio" name="flexRadioDefault" id="vote13">
-              <label class="form-check-label" for="vote13">13</label>
-            </div>
-          </form>
+          <div class="form-check">
+            <form action="#n" name="vote" id="voteButtons">
+              <table id="votesTable" class="table table-borderless table-striped table-earning">
+                <tbody id="votesTableBody">
+                  <tr>
+                    <th scope="row"></th>
+                    <td><input class="form-check-input" type="radio" name="flexRadioDefault" id="vote0"></td>
+                    <td><label class="form-check-label" for="vote0">0</label></td>
+                    <td id="noVotes0"></td>
+                  </tr>
+                  <tr>
+                    <th scope="row"></th>
+                    <td><input class="form-check-input" type="radio" name="flexRadioDefault" id="vote1"></td>
+                    <td><label class="form-check-label" for="vote1">1</label></td>
+                    <td id="noVotes1"></td>
+                  </tr>
+                  <tr>
+                    <th scope="row"></th>
+                    <td><input class="form-check-input" type="radio" name="flexRadioDefault" id="vote2"></td>
+                    <td><label class="form-check-label" for="vote2">2</label></td>
+                    <td id="noVotes2"></td>
+                  </tr>
+                  <tr>
+                    <th scope="row"></th>
+                    <td><input class="form-check-input" type="radio" name="flexRadioDefault" id="vote3"></td>
+                    <td><label class="form-check-label" for="vote3">3</label></td>
+                    <td id="noVotes3"></td>
+                  </tr>
+                  <tr>
+                    <th scope="row"></th>
+                    <td><input class="form-check-input" type="radio" name="flexRadioDefault" id="vote5"></td>
+                    <td><label class="form-check-label" for="vote5">5</label></td>
+                    <td id="noVotes5"></td>
+                  </tr>
+                  <tr>
+                    <th scope="row"></th>
+                    <td><input class="form-check-input" type="radio" name="flexRadioDefault" id="vote8"></td>
+                    <td><label class="form-check-label" for="vote8">8</label></td>
+                    <td id="noVotes8"></td>
+                  </tr>
+                  <tr>
+                    <th scope="row"></th>
+                    <td><input class="form-check-input" type="radio" name="flexRadioDefault" id="vote13"></td>
+                    <td><label class="form-check-label" for="vote13">13</label></td>
+                    <td id="noVotes13"></td>
+                  </tr>
+                </tbody>
+              </table>
+            </form>
+          </div>
           <br>
 
           <div class="col-auto">
               <button type="button" onclick="castVote()" class="btn btn-primary mb-3">Vote</button>
           </div>
-
-          <div class="col-auto">
-              <button id="totScore" type="button" onclick="getTotalScore()" class="btn btn-primary mb-3" style="display:none;">
-                Show total score
-              </button>
-          </div>
-          <p id="totScoreText"></p>
+          <p>Total score</p>
+          <p id="totScoreText" style="font-size:200%;"></p>
 
         </div>
       </div>

@@ -1,4 +1,5 @@
 from planning_poker.utils import *
+from planning_poker.enums import *
 
 
 class Issue(object):
@@ -13,6 +14,10 @@ class Issue(object):
 
     def score(self) -> int:
         return sum(self._score.values())
+
+    def votes(self):
+        all_votes = list(self._score.values())
+        return {score_.value: all_votes.count(score_.value) for score_ in Score}
 
 
 class Game(object):

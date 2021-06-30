@@ -25,7 +25,7 @@
 
           <form class="row g-3">
             <div class="col-auto">
-              <input type="text" class="form-control" id="inputNewIssue">
+              <input type="text" class="form-control" id="inputNewIssue"  value="New Issue">
             </div>
             <div class="col-auto">
               <button type="button" onclick="CreateNewIssue()" class="btn btn-primary mb-3">Go</button>
@@ -36,10 +36,16 @@
             <tbody id="issuesBody"></tbody>
           </table>
           <script>loadIssues();</script>
+          <p>Invite others:</p>
+          <p id="shareLink" style="font-size:50%;">
+            <script>
+              var link = window.location.href;
+              document.getElementById("shareLink").innerHTML = link;
+            </script>
+          </p>
 
         </div>
       </div>
     </div>
-
   </body>
 </html>

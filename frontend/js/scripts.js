@@ -97,31 +97,6 @@ function castVote() {
             break;
         }
     }
-
-    request.onreadystatechange = function() {
-        if (request.readyState === 4) {
-            document.getElementById("totScore").style = "";
-            };
-        }
-
     request.open("POST", "/vote");
     request.send(JSON.stringify({"score": selection, "game_id": gameId, "issue_id": issueId, "user_id": cookie}));
-}
-
-function getTotalScore () {
-
-    var issueId = window.location.href.slice(-36);
-    var gameId = window.location.href.replace(issueId, ""),
-    gameId = gameId.slice(-37, -1);
-
-    request.onreadystatechange = function() {
-        if (request.readyState === 4) {
-            var totScore = request.response;
-            document.getElementById("totScoreText").innerHTML = "The total score is " + totScore;
-            };
-        }
-
-    request.open("POST", "/total_score");
-    request.send(JSON.stringify({"game_id": gameId, "issue_id": issueId}));
-
 }
