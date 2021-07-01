@@ -1,1 +1,5 @@
-# planning-poker
+# PLANNING POKER
+
+### Installation
+* Clone the repo
+* 

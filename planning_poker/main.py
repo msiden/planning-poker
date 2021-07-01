@@ -49,12 +49,12 @@ def list_games() -> list:
 
 
 @app.post("/list_issues")
-def list_issues(game_id: Id):
+def list_issues(game_id: Id) -> list:
     return games.get(game_id.id).issues()
 
 
 @app.get("/game/{game_id}/{issue_id}", response_class=HTMLResponse)
-def issue_page(request: Request):
+def issue_page(request: Request) -> templates.TemplateResponse:
     response = templates.TemplateResponse("issue.html", {"request": request})
     cookie = request.headers.get("cookie")
     if not cookie:
@@ -68,5 +68,5 @@ def total_score(issue: Issues) -> int:
 
 
 @app.post("/list_votes")
-def list_votes(issue: Issues) -> list:
+def list_votes(issue: Issues) -> dict:
     return games.get(issue.game_id).issue(issue.issue_id).votes()
