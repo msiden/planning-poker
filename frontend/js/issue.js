@@ -4,6 +4,7 @@ var gameId = window.location.href.replace(issueId, "");
 gameId = gameId.slice(-37, -1);
 const TEXT = "Total votes: "
 
+
 function updateVotes() {
 
     setInterval(function() {
